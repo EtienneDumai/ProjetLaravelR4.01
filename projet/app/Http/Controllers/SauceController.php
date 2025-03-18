@@ -13,7 +13,8 @@ class SauceController extends Controller
      */
     public function index()
     {
-        //
+        $sauces = Sauce::all();
+        return view('sauces.index', compact('sauces'));
     }
 
     /**
@@ -23,7 +24,7 @@ class SauceController extends Controller
      */
     public function create()
     {
-        //
+        return view('sauces.create');
     }
 
     /**
@@ -34,7 +35,40 @@ class SauceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Check if the user is authenticated
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'You need to be logged in to add a sauce.');
+        }
+
+        // Validation des données
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'manufacturer' => 'required|string|max:255',
+            'description' => 'required|string',
+            'mainPepper' => 'required|string|max:255',
+            'imageUrl' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'heat' => 'required|integer|min:1|max:10',
+        ]);
+
+        // Gestion de l'upload d'image
+        $imageName = time().'.'.$request->imageUrl->extension();
+        $imagePath = $request->imageUrl->storeAs('sauces', $imageName, 'public');
+        $imageUrl = asset('storage/'.$imagePath);
+
+        // Création et enregistrement de la sauce
+        Sauce::create([
+            'name' => $request->input('name'),
+            'manufacturer' => $request->input('manufacturer'),
+            'description' => $request->input('description'),
+            'mainPepper' => $request->input('mainPepper'),
+            'imageUrl' => $imageUrl,
+            'heat' => $request->input('heat'),
+            'userId' => Auth::id(), // Get the authenticated user's ID
+            'likes' => 0,
+            'dislikes' => 0,
+        ]);
+
+        return redirect()->route('sauces.index')->with('success', 'Sauce ajoutée avec succès!');
     }
 
     /**
@@ -45,40 +79,8 @@ class SauceController extends Controller
      */
     public function show($id)
     {
-        //
+        $sauce = Sauce::findOrFail($id);
+        return view('sauces.show', compact('sauce'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
