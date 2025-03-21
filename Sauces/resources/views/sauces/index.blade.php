@@ -9,11 +9,14 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $sauce->name }}</h5>
                         <p class="card-text">{{ $sauce->description }}</p>
-                        <a href="{{ route('sauces.show', $sauce->idSauce) }}" class="btn btn-primary">View Details</a>
+                        <a href="{{ route('sauces.show', $sauce->idSauce) }}" class="btn btn-primary">Détails de la sauce</a>
                     </div>
                 </div>
             </div>
         @endforeach
+        <div class="container">
+            <a href="{{ route('sauces.create') }}" class="btn btn-primary">Ajouter une sauce</a>
+        </div>
     </div>
 </div>
 @endsection
