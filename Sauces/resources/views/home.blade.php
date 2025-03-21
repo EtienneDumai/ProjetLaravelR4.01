@@ -13,8 +13,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
                     {{ __('You are logged in!') }}
+                    <a href="{{ route('sauces.index') }}" class="w-100 btn btn-primary">Voir les sauces</a>
                 </div>
             </div>
         </div>
