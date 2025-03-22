@@ -4,3 +4,9 @@
 - Composer 2.8.6
 - PHP 8.3.13
 - MySQL 8.3.0
+
+## Installation du projet : 
+- cloner le repository GitHub 
+- cd \sauces\
+- composer install 
+s
