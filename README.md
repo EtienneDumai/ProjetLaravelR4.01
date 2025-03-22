@@ -9,4 +9,3 @@
 - cloner le repository GitHub 
 - cd \sauces\
 - composer install 
-s

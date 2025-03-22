@@ -68,8 +68,6 @@ class SaucesController extends Controller
             'mainPepper' => $request->input('mainPepper'),
             'imageUrl' => $imageUrl,
             'heat' => $request->input('heat'),
-            'likes' => 0,
-            'dislikes' => 0,
         ]);
 
         return redirect()->route('sauces.index')->with('success', 'Sauce ajoutée avec succès!');
