@@ -1,4 +1,4 @@
-*
+
 !private/
-!public/
+public/sauces/[0-9]*
 !.gitignore
