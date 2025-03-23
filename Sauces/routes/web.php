@@ -19,8 +19,7 @@ Route::get('/sauces/edit/{id}', [SaucesController::class, 'edit'])->name('sauces
 Route::put('/sauces/update/{id}', [SaucesController::class, 'update'])->name('sauces.update');
 Route::delete('/sauces/destroy/{id}', [SaucesController::class, 'destroy'])->name('sauces.destroy');
 
-// Routes pour une sauce unique
-Route::get('sauces/react/{id}/{reaction}', [SaucesController::class, 'like'])->name('sauce.react');
+
 
 
 
